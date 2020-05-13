@@ -4,8 +4,7 @@ import * as types from './mutation-types';
 
 Vue.use(Vuex);
 
-export const store = new Vuex.store({
-
+export const store = new Vuex.Store({
    state: {
         user: {
             id: '',
@@ -17,7 +16,6 @@ export const store = new Vuex.store({
 
        authenticated: false
    },
-
    getters: {
 
        getUser: state => {
@@ -29,7 +27,6 @@ export const store = new Vuex.store({
        }
 
    },
-
     mutations: {
 
        [types.USER](state, data) {

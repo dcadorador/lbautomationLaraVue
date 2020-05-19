@@ -42,4 +42,84 @@ class UserController extends ApiController
 
         return UserResource::make($user);
     }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
+    public function collection(Request $request)
+    {
+        return UserResource::collection($this->repository->collection());
+    }
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @return UserResource|\Illuminate\Http\JsonResponse
+     */
+    public function get(Request $request, $id)
+    {
+        $user = $this->repository->find($id);
+
+        if(!$user) {
+            return response()->json([
+                'status' => false,
+                'message' => 'User Not Found'
+            ], Response::HTTP_NOT_FOUND );
+        }
+
+        return UserResource::make($user);
+    }
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @return UserResource|\Illuminate\Http\JsonResponse
+     */
+    public function update(Request $request, $id)
+    {
+        $user = $this->repository->find($id);
+
+        if(!$user) {
+            return response()->json([
+                'status' => false,
+                'message' => 'User Not Found'
+            ], Response::HTTP_NOT_FOUND );
+        }
+
+        $input = $request->only([
+           'name',
+           'email',
+           'password'
+        ]);
+
+        $updated_user = $this->repository->update($id, $input);
+
+        return UserResource::make($updated_user);
+    }
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function delete(Request $request, $id)
+    {
+        $user = $this->repository->find($id);
+
+        if(!$user) {
+            return response()->json([
+                'status' => false,
+                'message' => 'User Not Found'
+            ], Response::HTTP_NOT_FOUND );
+        }
+
+        $this->repository->delete($id);
+
+        return response()->json([
+            'status' => true,
+            'message' => 'User Deleted'
+        ], Response::HTTP_OK );
+    }
+
 }

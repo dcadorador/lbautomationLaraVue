@@ -58,4 +58,12 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function infusionsoftAccounts()
+    {
+        return $this->hasMany(InfusionsoftAccount::class, 'user_id');
+    }
 }

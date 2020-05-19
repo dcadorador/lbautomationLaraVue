@@ -34,8 +34,38 @@ Route::group([
         'uses' => 'AuthController@logout'
     ]);
 
+
+    Route::group([
+        'prefix' => 'users',
+        'as' => '.users'
+    ], function() {
+
+        Route::get('', [
+            'as' => '.user-collection',
+            'uses' => 'UserController@collection'
+        ]);
+
+        Route::post('', [
+            'as' => '.user-create',
+            'uses' => 'UserController@create'
+        ]);
+
+        Route::get('{id}', [
+            'as' => '.user-find',
+            'uses' => 'UserController@get'
+        ]);
+
+        Route::put('{id}', [
+            'as' => '.user-update',
+            'uses' => 'UserController@update'
+        ]);
+
+        Route::delete('{id}', [
+            'as' => '.user-delete',
+            'uses' => 'UserController@delete'
+        ]);
+
+    });
+
 });
 
-/* Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-}); */

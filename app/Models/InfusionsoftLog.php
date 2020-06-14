@@ -10,8 +10,10 @@ class InfusionsoftLog extends Model
     protected $table = 'infusionsoft_logs';
 
     protected $fillable = [
-        'infusionsoft_account_id',
-        'data'
+        'app_name',
+        'auth_key',
+        'data',
+        'infusionsoft_results'
     ];
 
     public function infusionsoftAccount()

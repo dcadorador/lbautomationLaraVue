@@ -35,37 +35,64 @@ Route::group([
     ]);
 
 
-    Route::group([
-        'prefix' => 'users',
-        'as' => '.users'
-    ], function() {
+        Route::group([
+            'prefix' => 'users',
+            'as' => '.users'
+        ], function() {
 
-        Route::get('', [
-            'as' => '.user-collection',
-            'uses' => 'UserController@collection'
-        ]);
+            Route::get('', [
+                'as' => '.user-collection',
+                'uses' => 'UserController@collection'
+            ]);
 
-        Route::post('', [
-            'as' => '.user-create',
-            'uses' => 'UserController@create'
-        ]);
+            Route::post('', [
+                'as' => '.user-create',
+                'uses' => 'UserController@create'
+            ]);
 
-        Route::get('{id}', [
-            'as' => '.user-find',
-            'uses' => 'UserController@get'
-        ]);
+            Route::get('{id}', [
+                'as' => '.user-find',
+                'uses' => 'UserController@get'
+            ]);
 
-        Route::put('{id}', [
-            'as' => '.user-update',
-            'uses' => 'UserController@update'
-        ]);
+            Route::put('{id}', [
+                'as' => '.user-update',
+                'uses' => 'UserController@update'
+            ]);
 
-        Route::delete('{id}', [
-            'as' => '.user-delete',
-            'uses' => 'UserController@delete'
-        ]);
+            Route::delete('{id}', [
+                'as' => '.user-delete',
+                'uses' => 'UserController@delete'
+            ]);
 
-    });
+        });
 
+
+            Route::group([
+                'prefix' => 'infusionsoft',
+                'as' => '.infusionsoft'
+            ], function(){
+
+                Route::get('', [
+                    'as' => '.infusionsoft-collection',
+                    'uses' => 'InfusionsoftAccountController@index'
+                ]);
+
+                Route::post('', [
+                    'as' => '.infusionsoft-create',
+                    'uses' => 'InfusionsoftAccountController@create'
+                ]);
+
+                Route::delete('{id}', [
+                    'as' => '.infusionsoft-delete',
+                    'uses' => 'InfusionsoftAccountController@delete'
+                ]);
+
+                Route::get('/account/{app}/logs', [
+                    'as' => '.infusionsoft-logs',
+                    'uses' => 'InfusionsoftAccountController@accountLogs'
+                ]);
+
+            });
 });
 

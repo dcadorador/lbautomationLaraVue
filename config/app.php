@@ -177,6 +177,7 @@ return [
         Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
 
         App\Providers\UserProvider::class,
+        App\Providers\InfusionsoftProvider::class,
 
     ],
 

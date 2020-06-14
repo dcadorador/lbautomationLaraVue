@@ -15,8 +15,11 @@ class CreateInfusionsoftLogsTable extends Migration
     {
         Schema::create('infusionsoft_logs', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('infusionsoft_account_id');
+            // $table->unsignedBigInteger('infusionsoft_account_id')->nullable();
+            $table->string('app_name')->nullable();
+            $table->string('auth_key')->nullable();
             $table->text('data')->nullable();
+            $table->string('infusionsoft_results')->nullable();
             $table->timestamps();
         });
     }

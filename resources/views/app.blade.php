@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="fullscreen-bg">
 <head>
     <meta charset="utf-8">

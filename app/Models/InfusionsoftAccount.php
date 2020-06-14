@@ -53,7 +53,7 @@ class InfusionsoftAccount extends Model
      */
     public function logs()
     {
-        return $this->hasMany(InfusionsoftLog::class, 'infusionsoft_account_id');
+        return $this->hasMany(InfusionsoftLog::class, 'app_name', 'app_name');
     }
 
     /**

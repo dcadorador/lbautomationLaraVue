@@ -32,7 +32,7 @@
                         <h1 class="heading text-center">Welcome to Launch Business Automation System</h1>
                     </div>
                 </div>
-               
+
             </div>
         </div>
     </div>
@@ -45,7 +45,7 @@
 
         data() {
             return {
-                errors: [],
+                errors: '',
                 checked: false,
                 login: {
                     email: '',
@@ -55,18 +55,12 @@
         },
 
         computed: {
-            /*...mapGetters({
-                getUser: 'getUser'
-            })*/
+
         },
 
         methods: {
-           /* ...mapActions({
-                auth: 'authentication'
-            }),*/
 
             authentication() {
-                // console.log('DREW')
 
                 let data = {
                     email: this.login.email,
@@ -74,14 +68,16 @@
                 }
 
                 this.$store.dispatch('login', data)
-                    .then(() => {
+                    .then((data) => {
                         console.log('success');
-                        this.$router.go('/')
+                        this.$router.push('/')
                     })
                     .catch(err => {
-                        this.errors.push(err);
+                        if(err == 'Request failed with status code 401') {
+                            this.errors = 'Invalid username/password'
+                        }
+                        //this.errors.push('');
                     });
-                
             },
 
         }

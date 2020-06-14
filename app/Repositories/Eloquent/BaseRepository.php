@@ -34,7 +34,7 @@ abstract class BaseRepository implements RepositoryInterface
      * @return mixed
      */
     public function find($id) {
-        return $this->model->first($id);
+        return $this->model->find($id);
     }
 
     /**

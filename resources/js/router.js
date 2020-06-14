@@ -3,8 +3,7 @@ import Vue from "vue";
 import Login from "./components/auth/Login";
 import NotFound from "./components/NotFound";
 import Dashboard from "./components/dashboard/Dashboard.vue";
-import store from "./store/store";
-import InfusionsoftAdd from "./components/infusionsoft/InfusionsoftAdd";
+import InfusionsoftLogs from "./components/infusionsoft/InfusionsoftLogs"
 
 Vue.use(VueRouter);
 
@@ -24,9 +23,9 @@ const router = new VueRouter({
             }
         },
         {
-            path: '/infusionsoft',
-            name: 'infusionsoft',
-            component: InfusionsoftAdd,
+            path: '/application/:app/logs',
+            name: 'applogs',
+            component: InfusionsoftLogs,
             meta: {
                 layout: 'main'
             }
@@ -40,8 +39,8 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
 
-    if (to.name !== 'login' && !store.state.authenticated) {
-        next()
+    if (to.name !== 'login' && localStorage.getItem('jwt') == null) {
+        next('/login')
     } else {
         next()
     }

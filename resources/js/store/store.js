@@ -1,7 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import axios from 'axios';
-import * as types from './mutation-types';
 
 Vue.use(Vuex);
 
@@ -16,8 +15,6 @@ export const store = new Vuex.Store({
             last_login: '',
             role: '',
         },
-
-        authenticated: false
     },
     getters: {
 
@@ -25,27 +22,17 @@ export const store = new Vuex.Store({
             return state.user
         },
 
-        isAuthenticated: state => {
-            return state.authenticated
-        }
-
     },
     mutations: {
 
-        [types.USER](state, data) {
-            state.user = data;
+        auth_success(state, token) {
+            localStorage.setItem('jwt', token);
         },
 
-        [types.AUTHENTICATED](state, data, token) {
-            state.authenticated = data;
-            localStorage.setItem('jwt', token);
-
-        },
-
-        /*authSuccess(state, token) {
-            state.authenticated = true;
-            localStorage.setItem('jwt', token);
-        }*/
+        auth_user_success(state, user) {
+            state.user = user;
+            localStorage.setItem('user', JSON.stringify(user));
+        }
 
     },
 
@@ -65,16 +52,15 @@ export const store = new Vuex.Store({
                     password: user.password
                 }
 
-                console.log(URL);
-
                 axios.post(URL + '/api/v1/login', data, config)
                     .then(response => {
-                        commit(AUTHENTICATED, true, response.data.token)
-                        commit(USER, response.data.data)
-                        resolve($response)
+                        commit('auth_success', response.data.token)
+                        commit('auth_user_success', response.data.data)
+                        resolve(response)
                     })
                     .catch(error => {
-                        reject(error)
+                        //console.log(error.message)
+                        reject(error.message)
                     });
 
             })

@@ -2,13 +2,17 @@ import axios from "axios";
 import Vue from 'vue';
 
 function createInstance(baseURL) {
+    let apiHeaders = {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
+        'Accept': 'application/json',
+    };
+
+    console.log(apiHeaders);
+
     return axios.create({
         baseURL,
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('jwt')}`,
-            'Accept': 'application/json'
-        }
+        headers: apiHeaders
     });
 }
 

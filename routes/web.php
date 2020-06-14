@@ -14,5 +14,5 @@
 Route::get('/{any?}', 'HomeController')
     ->where('any','^(?!api\/)[\/\w\.-]*');
 
-Route::get('/{any?}', 'HomeController')
-    ->where('infusionsoft','^(?!api\/)[\/\w\.-]*');
+/*Route::get('/{any?}', 'HomeController')
+    ->where('infusionsoft','^(?!api\/)[\/\w\.-]*');*/
